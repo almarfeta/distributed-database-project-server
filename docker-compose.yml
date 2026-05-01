@@ -1,0 +1,10 @@
+services:
+  oracle-db:
+    image: container-registry.oracle.com/database/enterprise:21.3.0.0
+    container_name: oracle-enterprise-distributed-db
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_PWD=Parola1234
+    restart: no
