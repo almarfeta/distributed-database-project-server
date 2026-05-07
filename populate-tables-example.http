@@ -1,0 +1,205 @@
+@token = REPLACE_WITH_LOGIN_TOKEN
+@brandId = REPLACE_WITH_BRAND_UUID
+@parentCategoryId = REPLACE_WITH_PARENT_CATEGORY_UUID
+@subcategoryId = REPLACE_WITH_SUBCATEGORY_UUID
+@productId = REPLACE_WITH_PRODUCT_UUID
+@roInventoryId = REPLACE_WITH_RO_INVENTORY_UUID
+@bgInventoryId = REPLACE_WITH_BG_INVENTORY_UUID
+@roPriceId = REPLACE_WITH_RO_PRICE_UUID
+@bgPriceId = REPLACE_WITH_BG_PRICE_UUID
+@roCustomerId = REPLACE_WITH_RO_CUSTOMER_UUID
+@bgCustomerId = REPLACE_WITH_BG_CUSTOMER_UUID
+@roAddressId = REPLACE_WITH_RO_ADDRESS_UUID
+@bgAddressId = REPLACE_WITH_BG_ADDRESS_UUID
+
+### Create admin account (disable security to run this the first time)
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "email": "admin@example.com",
+  "password": "Parola1234",
+  "role": "ADMIN"
+}
+
+### Login to admin account
+POST http://localhost:8081/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "Parola1234"
+}
+
+### Create a brand
+POST http://localhost:8081/api/admin/brand
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Apple"
+}
+
+### Create a category with no parent
+POST http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Electronics"
+}
+
+### Create a subcategory for the previous one
+POST http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Laptops",
+  "parentCategoryId": "{{parentCategoryId}}"
+}
+
+### Create a product
+POST http://localhost:8081/api/admin/product
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "brandId": "{{brandId}}",
+  "categoryId": "{{subcategoryId}}",
+  "sku": "ABC123456",
+  "name": "MacBook",
+  "description": "Example laptop product description",
+  "defaultPrice": 999.99
+}
+
+### Add stocks for RO inventory
+PATCH http://localhost:8081/api/admin/product/inventory/{{roInventoryId}}?stock=25
+Authorization: Bearer {{token}}
+
+### Add stocks for BG inventory
+PATCH http://localhost:8081/api/admin/product/inventory/{{bgInventoryId}}?stock=15
+Authorization: Bearer {{token}}
+
+### Add RO price
+POST http://localhost:8081/api/admin/product/{{productId}}/price
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "market": "RO",
+  "price": 4899.99,
+  "currency": "RON"
+}
+
+### Add BG price
+POST http://localhost:8081/api/admin/product/{{productId}}/price
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "market": "BG",
+  "price": 1949.99,
+  "currency": "BGN"
+}
+
+### Update status for product
+PATCH http://localhost:8081/api/admin/product/{{productId}}?status=ACTIVE
+Authorization: Bearer {{token}}
+
+### Create RO customer
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "ro.customer",
+  "email": "ro.customer@example.com",
+  "password": "Parola1234",
+  "role": "USER",
+  "firstName": "Andrei",
+  "lastName": "Popescu",
+  "market": "RO",
+  "dateOfBirth": "1995-04-12",
+  "phoneNumber": "+40740111222"
+}
+
+### Create BG customer
+POST http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "bg.customer",
+  "email": "bg.customer@example.com",
+  "password": "Parola1234",
+  "role": "USER",
+  "firstName": "Ivan",
+  "lastName": "Petrov",
+  "market": "BG",
+  "dateOfBirth": "1992-09-21",
+  "phoneNumber": "+359881234567"
+}
+
+### Add address for RO customer
+POST http://localhost:8081/api/admin/account/{{roCustomerId}}/address
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "street": "Strada Lalelelor 10",
+  "city": "Bucharest",
+  "region": "Bucharest",
+  "country": "Romania",
+  "postalCode": "010101"
+}
+
+### Add address for BG customer
+POST http://localhost:8081/api/admin/account/{{bgCustomerId}}/address
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "street": "15 Vitosha Blvd",
+  "city": "Sofia",
+  "region": "Sofia City",
+  "country": "Bulgaria",
+  "postalCode": "1000"
+}
+
+### Add order for RO customer
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "customerId": "{{roCustomerId}}",
+  "addressId": "{{roAddressId}}",
+  "paymentMethod": "CARD",
+  "orderItems": [
+    {
+      "productId": "{{productId}}",
+      "priceId": "{{roPriceId}}",
+      "quantity": 1
+    }
+  ]
+}
+
+### Add order for BG customer
+POST http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "customerId": "{{bgCustomerId}}",
+  "addressId": "{{bgAddressId}}",
+  "paymentMethod": "CARD",
+  "orderItems": [
+    {
+      "productId": "{{productId}}",
+      "priceId": "{{bgPriceId}}",
+      "quantity": 1
+    }
+  ]
+}

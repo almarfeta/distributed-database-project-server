@@ -1,0 +1,25 @@
+@token = REPLACE_WITH_LOGIN_TOKEN
+
+### Get all brands
+GET http://localhost:8081/api/admin/brand
+
+### Get all categroies
+GET http://localhost:8081/api/admin/category
+
+### Get all products
+GET http://localhost:8081/api/admin/product
+
+### Get all inventories
+GET http://localhost:8081/api/admin/product/inventory
+
+### Get all prices
+GET http://localhost:8081/api/admin/product/price
+
+### Get all accounts
+GET http://localhost:8081/api/admin/account
+
+### Get all addresses
+GET http://localhost:8081/api/admin/account/address
+
+### Get all orders
+GET http://localhost:8081/api/admin/order
