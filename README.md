@@ -24,15 +24,12 @@
 4. (Optional) You can connect to these schemas in IntelliJ similarly as the SYSTEM user, but replace the service name with the PDB name
 
 ### Create local and global schemas
-1. Open ~~`src/main/resources/db`~~ `db` and you will find the SQL scripts to create the schemas
+
+1. Open `src/main/resources/db` and you will find the SQL scripts to create the schemas
 2. Execute the scripts in the order of the versions, and it should be good to go
 
-[//]: # (### Run the application)
+### Run the application
 
-[//]: # (1. Before running the Spring Boot application, make sure you add these VM options:)
-
-[//]: # (   1. `-Dspring.oltp.datasource.password=<the same password you used to create the user>`)
-
-[//]: # (   2. `-Dspring.olap.datasource.password=<the same password you used to create the user>`)
-
-[//]: # (   3. `-Dproject.jwt.secret-key=<use a webiste like https://jwtsecrets.com to generate a 256 bit secret key>`)
+1. Before running the Spring Boot application, make sure you add these VM options:
+    1. `-Dspring.datasource.password=<the same password you used to create the user>`
+    2. `-Dproject.jwt.secret-key=<use a webiste like https://jwtsecrets.com to generate a 256 bit secret key>`
