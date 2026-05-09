@@ -51,7 +51,7 @@ class ProductService {
     }
 
     List<ProductResponse> getAllProducts() {
-        return this.productRepository.findAllWithBrandAndCategoryAndInventory().stream()
+        return this.productRepository.findAllWithBrandAndCategory().stream()
                 .map(ProductResponse::fromEntity).toList();
     }
 
@@ -157,6 +157,7 @@ class ProductService {
                 .orElseThrow(() -> new NotFoundException("Product not found"));
 
         product.getPrices().stream()
+                .filter(price -> price.getMarket() == form.getMarket())
                 .filter(price -> price.getStatus() == PriceStatus.ACTIVE)
                 .forEach(price -> price.setStatus(PriceStatus.INACTIVE));
 

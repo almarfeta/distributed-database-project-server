@@ -18,7 +18,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity(name = "product")
@@ -48,8 +47,8 @@ public class ProductEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    @OneToOne(mappedBy = "product")
-    private InventoryEntity inventory;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<InventoryEntity> inventories = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<PriceEntity> prices = new ArrayList<>();
@@ -126,12 +125,12 @@ public class ProductEntity {
         this.category = category;
     }
 
-    public InventoryEntity getInventory() {
-        return inventory;
+    public List<InventoryEntity> getInventories() {
+        return this.inventories;
     }
 
-    public void setInventory(InventoryEntity inventory) {
-        this.inventory = inventory;
+    public void setInventories(List<InventoryEntity> inventories) {
+        this.inventories = inventories;
     }
 
     public List<PriceEntity> getPrices() {

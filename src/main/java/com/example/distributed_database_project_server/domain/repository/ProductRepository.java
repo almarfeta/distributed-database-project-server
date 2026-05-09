@@ -12,6 +12,6 @@ import com.example.distributed_database_project_server.domain.entity.ProductEnti
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
 
-    @Query("select p from product p join fetch p.brand join fetch p.category join fetch p.inventory")
-    List<ProductEntity> findAllWithBrandAndCategoryAndInventory();
+    @Query("select p from product p join fetch p.brand join fetch p.category")
+    List<ProductEntity> findAllWithBrandAndCategory();
 }

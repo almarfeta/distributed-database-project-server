@@ -11,9 +11,3 @@ CREATE MATERIALIZED VIEW categories
 AS
 SELECT id, parent_category_id, category_name
 FROM categories_global_remote;
-
-BEGIN
-    DBMS_MVIEW.REFRESH('BRANDS');
-    DBMS_MVIEW.REFRESH('CATEGORIES');
-END;
-/

@@ -2,24 +2,40 @@
 
 ### Get all brands
 GET http://localhost:8081/api/admin/brand
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all categroies
 GET http://localhost:8081/api/admin/category
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all products
 GET http://localhost:8081/api/admin/product
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all inventories
 GET http://localhost:8081/api/admin/product/inventory
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all prices
 GET http://localhost:8081/api/admin/product/price
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all accounts
 GET http://localhost:8081/api/admin/account
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all addresses
 GET http://localhost:8081/api/admin/account/address
+Content-Type: application/json
+Authorization: Bearer {{token}}
 
 ### Get all orders
 GET http://localhost:8081/api/admin/order
+Content-Type: application/json
+Authorization: Bearer {{token}}

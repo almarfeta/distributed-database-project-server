@@ -39,11 +39,16 @@ class CategoryService {
                     .orElseThrow(() -> new NotFoundException("Parent category not found"));
         }
 
-        return this.categoryRepository.save(new CategoryEntity(form.getName(), parentCategory)).getId();
+        UUID categoryId = this.categoryRepository.save(new CategoryEntity(form.getName(), parentCategory)).getId();
+
+        this.categoryRepository.refreshReplicas();
+
+        return categoryId;
     }
 
     @Transactional
     void deleteCategory(UUID id) {
         this.categoryRepository.deleteById(id);
+        this.categoryRepository.refreshReplicas();
     }
 }

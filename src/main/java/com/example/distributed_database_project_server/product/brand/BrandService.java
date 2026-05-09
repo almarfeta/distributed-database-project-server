@@ -37,11 +37,16 @@ class BrandService {
             throw new BadRequestException("Brand already exists");
         }
 
-        return this.brandRepository.save(new BrandEntity(form.getName())).getId();
+        UUID brandId = this.brandRepository.save(new BrandEntity(form.getName())).getId();
+
+        this.brandRepository.refreshReplicas();
+
+        return brandId;
     }
 
     @Transactional
     void deleteBrand(UUID id) {
         this.brandRepository.deleteById(id);
+        this.brandRepository.refreshReplicas();
     }
 }

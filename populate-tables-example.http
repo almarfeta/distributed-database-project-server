@@ -11,6 +11,8 @@
 @bgCustomerId = REPLACE_WITH_BG_CUSTOMER_UUID
 @roAddressId = REPLACE_WITH_RO_ADDRESS_UUID
 @bgAddressId = REPLACE_WITH_BG_ADDRESS_UUID
+@roAccountId = REPLACE_WITH_RO_ACCOUNT_UUID
+@bgAccountId = REPLACE_WITH_BG_ACCOUNT_UUID
 
 ### Create admin account (disable security to run this the first time)
 POST http://localhost:8081/api/admin/account
@@ -143,7 +145,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Add address for RO customer
-POST http://localhost:8081/api/admin/account/{{roCustomerId}}/address
+POST http://localhost:8081/api/admin/account/{{roAccountId}}/address
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -156,7 +158,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Add address for BG customer
-POST http://localhost:8081/api/admin/account/{{bgCustomerId}}/address
+POST http://localhost:8081/api/admin/account/{{bgAccountId}}/address
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
